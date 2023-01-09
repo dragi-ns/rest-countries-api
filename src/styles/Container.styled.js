@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default styled.div`
   max-width: 100%;
   margin: 0 auto;
-  padding-inline: 1.25rem;
+  padding: 1.5rem;
 
   @media (min-width: ${(props) => props.theme.breakpoints.sm}) {
     max-width: 540px;
