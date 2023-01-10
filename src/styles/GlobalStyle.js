@@ -19,7 +19,19 @@ body {
   background-color: ${(props) => props.theme.colors.bg};
 }
 
-button {
+:root,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input {
   font: inherit;
   color: inherit;
 }

@@ -16,12 +16,13 @@ export const StyledCountryCard = styled.div`
     min-width: 100%;
     vertical-align: middle;
     height: 175px;
-    object-fit: cover;
-    object-position: center;
   }
 `;
 
 export const StyledCountryCardBody = styled.div`
+  position: relative;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 12px;
   padding: 1.25rem 1.5rem 2.5rem;
 
   h2 {

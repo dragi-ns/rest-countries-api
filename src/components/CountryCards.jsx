@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import CountryCard from './CountryCard';
-import { StyledCountryCards } from '../styles/StyledCountryCards.styled';
+import { StyledCountryCards } from '../styles/StyledCountryCards';
 
 export default function CountryCards({ countries }) {
   return (

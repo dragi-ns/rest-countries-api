@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from './Container.styled';
+import { StyledContainer } from './StyledContainer';
 
 export const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.colors.bgComp};
@@ -43,7 +43,7 @@ export const StyledHeader = styled.header`
   }
 `;
 
-export const StyledHeaderContainer = styled(Container)`
+export const StyledHeaderContainer = styled(StyledContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;

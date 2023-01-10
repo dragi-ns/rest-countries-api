@@ -1,7 +1,4 @@
-import {
-  StyledHeader,
-  StyledHeaderContainer,
-} from '../styles/StyledHeader.styled';
+import { StyledHeader, StyledHeaderContainer } from '../styles/StyledHeader';
 import { ReactComponent as Moon } from '../assets/moon.svg';
 import { ReactComponent as Sun } from '../assets/sun.svg';
 

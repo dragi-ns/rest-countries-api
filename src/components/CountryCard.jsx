@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {
   StyledCountryCard,
   StyledCountryCardBody,
-} from '../styles/StyledCountryCard.styled';
+} from '../styles/StyledCountryCard';
 
 export default function CountryCard({
   flag,
@@ -13,9 +13,7 @@ export default function CountryCard({
 }) {
   return (
     <StyledCountryCard>
-      <div>
-        <img style={{ maxWidth: '100%' }} src={flag} alt={`${name}'s flag`} />
-      </div>
+      <img style={{ maxWidth: '100%' }} src={flag} alt={`${name}'s flag`} />
       <StyledCountryCardBody>
         <h2>{name}</h2>
         <ul>
