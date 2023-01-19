@@ -13,7 +13,7 @@ export default function CountryCard({
 }) {
   return (
     <StyledCountryCard>
-      <img style={{ maxWidth: '100%' }} src={flag} alt={`${name}'s flag`} />
+      <img src={flag} alt={`${name}'s flag`} />
       <StyledCountryCardBody>
         <h2>{name}</h2>
         <ul>

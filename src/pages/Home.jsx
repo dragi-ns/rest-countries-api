@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import {
+  getAllCountries,
+  getCountriesByRegion,
+  getCountriesByName,
+} from '../client';
 import { StyledContainer } from '../styles/StyledContainer';
 import { StyledHomeControls } from '../styles/StyledHomeControls';
 import { StyledInfo } from '../styles/StyledInfo';
 import CountryCards from '../components/CountryCards';
-import SearchInput from '../components/SearchInput.jsx';
+import SearchInput from '../components/SearchInput';
 import RegionDropdown from '../components/RegionDropdown';
-import { useSearchParams } from 'react-router-dom';
 
 export default function Home() {
+  const [countries, setCountries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [countries, setCountries] = useState(null);
 
   useEffect(() => {
-    setCountries(null);
-
     const searchValue = searchParams.get('search')?.trim();
     const regionValue = searchParams.get('region')?.trim();
     if (searchValue && regionValue) {
@@ -23,46 +27,34 @@ export default function Home() {
       return;
     }
 
-    if (searchValue) {
-      getCountriesByName(searchValue);
-    } else if (regionValue) {
-      getCountriesByRegion(regionValue);
-    } else {
-      getAllCountries();
-    }
+    // https://devtrium.com/posts/async-functions-useeffect
+    let isSubscribed = true;
+    const fetchData = async () => {
+      setIsLoading(true);
+      let data = null,
+        error = null;
+      if (searchValue) {
+        [data, error] = await getCountriesByName(searchValue);
+      } else if (regionValue) {
+        [data, error] = await getCountriesByRegion(regionValue);
+      } else {
+        [data, error] = await getAllCountries();
+      }
+      if (isSubscribed) {
+        if (data) {
+          setCountries(data);
+        } else {
+          setCountries([]);
+          console.error(error);
+        }
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+
+    return () => (isSubscribed = false);
   }, [searchParams]);
-
-  const getAllCountries = async () => {
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    if (!response.ok) {
-      setCountries([]);
-      return;
-    }
-    const data = await response.json();
-    setCountries(data);
-  };
-
-  const getCountriesByName = async (name) => {
-    const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
-    if (!response.ok) {
-      setCountries([]);
-      return;
-    }
-    const data = await response.json();
-    setCountries(data);
-  };
-
-  const getCountriesByRegion = async (region) => {
-    const response = await fetch(
-      `https://restcountries.com/v3.1/region/${region}`
-    );
-    if (!response.ok) {
-      setCountries([]);
-      return;
-    }
-    const data = await response.json();
-    setCountries(data);
-  };
 
   return (
     <StyledContainer>
@@ -70,13 +62,13 @@ export default function Home() {
         <SearchInput />
         <RegionDropdown />
       </StyledHomeControls>
-      {!countries && <StyledInfo>Loading...</StyledInfo>}
+      {isLoading && <StyledInfo>Loading...</StyledInfo>}
 
-      {countries && countries.length < 1 && (
+      {!isLoading && countries.length < 1 && (
         <StyledInfo>There are no results.</StyledInfo>
       )}
 
-      {countries && countries.length > 0 && (
+      {!isLoading && countries.length > 0 && (
         <CountryCards countries={countries} />
       )}
     </StyledContainer>

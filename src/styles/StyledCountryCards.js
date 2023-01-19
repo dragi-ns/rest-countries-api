@@ -7,6 +7,11 @@ export const StyledCountryCards = styled.div`
   gap: 3rem;
   margin: 1.5rem 2.5rem;
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   @media (min-width: ${(props) => props.theme.breakpoints.md}) {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     justify-content: start;

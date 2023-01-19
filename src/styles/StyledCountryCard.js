@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledCountryCard = styled.div`
+  display: flex;
+  flex-direction: column;
   min-width: 100%;
+  min-height: 100%;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 0.5rem;
@@ -14,6 +17,7 @@ export const StyledCountryCard = styled.div`
 
   img {
     min-width: 100%;
+    width: 100%;
     vertical-align: middle;
     height: 175px;
   }
@@ -22,7 +26,8 @@ export const StyledCountryCard = styled.div`
 export const StyledCountryCardBody = styled.div`
   position: relative;
   z-index: 10;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 12px;
+  box-shadow: rgba(0, 0, 0, 0.08) -5px -5px 12px;
+  flex-grow: 1;
   padding: 1.25rem 1.5rem 2.5rem;
 
   h2 {
